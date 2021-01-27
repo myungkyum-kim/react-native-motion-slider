@@ -119,6 +119,11 @@ class Slider extends Component {
 		};
 	}
 
+	slideTo(value){
+		this.setState({ value });
+		this.setState({posX: this.xOfValue(value)});
+	}
+
 	xOfValue(y) {
 		let { max, min } = this.props;
 		let m = Number(((min - max) / (this.minX - this.maxX)).toFixed(20));
@@ -215,11 +220,13 @@ class Slider extends Component {
 				Animated.timing(animScale, {
 					toValue: 1.4,
 					duration: 200,
+					useNativeDriver: false,
 				}),
 				Animated.spring(animTranslateY, {
 					toValue: -(height - Math.floor(height * 0.3)),
 					bounciness: 12,
-				})
+					useNativeDriver: false,
+				}),
 			]).start();
 
 			onPressIn();
@@ -240,11 +247,13 @@ class Slider extends Component {
 				Animated.timing(animScale, {
 					toValue: 1,
 					duration: 300,
+					useNativeDriver: false,
 				}),
 				Animated.timing(animTranslateY, {
 					toValue: 0,
 					duration: 300,
 					easing: Easing.out(Easing.exp),
+					useNativeDriver: false,
 				}),
 			]).start();
 
@@ -256,7 +265,8 @@ class Slider extends Component {
 	getCurrentColor() {
 		return new Animated.Value(Number(this.state.value)).interpolate({
 			inputRange: this.gradient.inputRange,
-			outputRange: this.gradient.outputRange
+			outputRange: this.gradient.outputRange,
+			useNativeDriver: false,
 		});
 	}
 
