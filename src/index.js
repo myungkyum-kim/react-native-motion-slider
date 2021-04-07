@@ -193,6 +193,7 @@ class Slider extends Component {
 				let posY = Math.floor(evt.nativeEvent.locationY);
 
 				if(posY < 0 || posY > this.props.height) return;
+				if(posX < this.minX) return;
 
 				this.calculateValue(posX);
 				this.setState({ posX });
